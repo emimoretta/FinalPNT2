@@ -15,7 +15,7 @@
       <!-- Grilla de usuarios -->
 
     <div class="grid">
-        <div v-for="user in users" :key="user.id" class="card" @click="viewUserWishlist(user.username)">
+        <div v-for="user in users" :key="user.id" class="user-card" @click="viewUserWishlist(user.username)">
       <img
         :src="user.avatar"
         alt="Avatar del usuario"
@@ -80,34 +80,6 @@
     flex: 1;
     margin-right: 10px;
   }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  .card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.2s ease-in-out;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  .card-link {
-    text-decoration: none;
-    color: inherit;
-  }
-  .avatar-img {
-  border-radius: 50%;
-  object-fit: cover; /* Asegura que la imagen se ajuste al contenedor circular */
-  display: block;
-  margin: 0 auto;
-}
-  .card-title {
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
+
+  
   </style>

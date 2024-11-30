@@ -1,0 +1,33 @@
+.user-card {
+    width: 150px; /* Ancho más pequeño */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar imagen y texto horizontalmente */
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .user-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .user-card img {
+    width: 80px; /* Tamaño de la imagen */
+    height: 80px;
+    border-radius: 50%; /* Imagen redonda */
+    object-fit: cover; /* Asegura que la imagen mantenga proporción */
+    margin-bottom: 10px;
+  }
+  
+  .user-card h3 {
+    font-size: 14px; /* Tamaño del texto */
+    color: #333;
+    white-space: nowrap; /* Evitar salto de línea */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto es muy largo */
+    margin: 0;
+  }

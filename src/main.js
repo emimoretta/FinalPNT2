@@ -4,7 +4,9 @@ import router from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "@fortawesome/fontawesome-free/css/all.css";
-
+import "@/assets/styles/Card.css";
+import "@/assets/styles/UserCard.css";
+import "@/assets/styles/Grid.css";
 
 const app = createApp(App);
 app.use(router);

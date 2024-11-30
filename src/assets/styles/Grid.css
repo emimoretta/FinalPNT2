@@ -1,0 +1,7 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap; /* Permitir que los elementos se ajusten a la siguiente fila */
+    gap: 10px; /* Espaciado entre tarjetas */
+    justify-content: normal; /* Centrar las tarjetas horizontalmente */
+    align-items: start; /* Asegurar que las tarjetas se alineen desde arriba */
+  }

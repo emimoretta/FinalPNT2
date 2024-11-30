@@ -5,7 +5,12 @@ import DashBoard from "../pages/DashBoard.vue";
 import { validateSession } from "@/services/api";
 
 const routes = [
-  { path: "/", component: HomePage },
+  {
+    path: '/',
+    name: 'Home',
+    component: HomePage,
+    meta: { requiresGuest: true }, // Solo accesible para usuarios no logueados
+  },
   {
     path: "/dashboard",
     component: DashBoard,
@@ -19,12 +24,16 @@ const router = createRouter({
   routes,
 });
 
+
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !validateSession()) {
-    alert("Por favor, inicia sesión para acceder.");
-    next({ path: "/" });
+  if (to.meta.requiresGuest && validateSession()) {
+    next('/dashboard');
+  }
+  // Redirigir a la página de login si intenta acceder a rutas protegidas y no está autenticado
+  else if (to.meta.requiresAuth && !validateSession()) {
+    next('/');
   } else {
-    next();
+    next(); // Continuar con la navegación
   }
 });
 
