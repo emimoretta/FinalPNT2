@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 import DashBoard from "../pages/DashBoard.vue";
+
 import { validateSession } from "@/services/api";
 
 const routes = [
@@ -10,6 +11,7 @@ const routes = [
     component: DashBoard,
     meta: { requiresAuth: true }, // Ruta protegida
   },
+  
 ];
 
 const router = createRouter({

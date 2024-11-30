@@ -1,21 +1,60 @@
 <template>
-    <div>
-      <h1>Bienvenido al Dashboard</h1>
-      <p>Solo puedes ver esto si has iniciado sesión correctamente.</p>
-      <button @click="handleLogout" class="btn btn-danger">Cerrar Sesión</button>
+  <div class="dashboard">
+    <SideBar @selectPage="changePage" />
+    <div class="dashboard-content">
+      <component
+        :is="currentPage"
+        @viewWishlist="viewWishlist"
+        :username="selectedUsername"
+      />
     </div>
-  </template>
-  
-  <script>
-  import { logoutUser } from "@/services/api";
-  
-  export default {
-    methods: {
-      handleLogout() {
-        logoutUser();
-        alert("Has cerrado sesión.");
-        this.$router.push("/");
-      },
+  </div>
+</template>
+
+<script>
+import SideBar from "@/components/SideBar.vue";
+import WishList from "@/components/WishList.vue";
+import GiftPage from "@/components/GiftPage.vue";
+import UserWishList from "@/components/UserWishList.vue";
+import AccountSettings from "@/components/AccountSettings.vue";
+
+
+export default {
+  name: "DashBoard",
+  components: {
+    SideBar,
+    WishList,
+    GiftPage,
+    UserWishList,
+    AccountSettings,
+  },
+  data() {
+    return {
+      currentPage: "WishList", // Página inicial
+      selectedUsername: null, // Usuario seleccionado para la lista de deseos
+    };
+  },
+  methods: {
+    changePage(page) {
+      this.currentPage = page;
     },
-  };
-  </script>
+    viewWishlist(username) {
+      this.selectedUsername = username;
+      this.currentPage = "UserWishList"; // Cambiar a la vista de UserWishlist
+    },
+  },
+};
+</script>
+
+<style scoped>
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+}
+</style>
