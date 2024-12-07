@@ -21,14 +21,28 @@
     <!-- Grilla de tarjetas -->
     <div class="grid">
       <div v-for="item in items" :key="item.id" class="card">
+         <!-- Etiqueta editable -->
+         <input
+          type="text"
+          class="tag-input"
+          :placeholder="'Inserta una etiqueta'"
+          v-model="item.tag"
+          @blur="updateTag(item)"
+          @keyup.enter="updateTag(item)"
+        />
         <img :src="item.picture" alt="Imagen del producto" class="card-img" />
-        <a :href="item.permalink" target="_blank" class="card-link"><h3 class="card-title">{{ item.title }}</h3></a>
+        <a :href="item.permalink" target="_blank" class="card-link">
+          <h3 class="card-title">{{ item.title }}</h3>
+        </a>
         <p class="card-price">${{ item.price }}</p>
         <p class="card-status" :class="item.status">
           {{ item.status === "gifted" ? "Regalado 🎁" : "Disponible 🛒" }}
         </p>
+        <!-- Botón de eliminar -->
+        <button @click="confirmDeletion(item.code)" class="btn btn-danger btn-delete">
+          Eliminar
+        </button>
       </div>
-
     </div>
 
     <!-- Popup de confirmación -->
@@ -58,6 +72,19 @@ export default {
     };
   },
   methods: {
+
+    async updateTag(item) {
+      try {
+        // Actualizar etiqueta en MockAPI
+        await axios.put(
+          `https://673f4527a9bc276ec4b7e74c.mockapi.io/api/v1/items/${item.id}`,
+          { tag: item.tag }
+        );
+        console.log(`Etiqueta actualizada: ${item.tag}`);
+      } catch (error) {
+        console.error("Error actualizando la etiqueta:", error);
+      }
+    },
 
     confirmDeletion(code) {
       this.itemToDelete = code; // Almacena el código del ítem a eliminar
@@ -116,10 +143,10 @@ export default {
             const matchP = url.match(/\/p\/(MLA\d+)/);
             if (matchP) {
               const intermediateCode = matchP[1]; // Código intermedio (e.g., MLA38098260)
-
+              console.log(intermediateCode)
               // Llamar a la API para obtener el itemId final
               const response = await axios.get(
-                `https://www.mercadolibre.com.ar/p/api/products/${intermediateCode}/s`
+                `/mercadolibre/p/api/products/${intermediateCode}/s`
               );
 
               const items =
@@ -130,7 +157,7 @@ export default {
               }
 
               code = items[0]?.item_id; // Usamos el primer item_id disponible
-
+              console.log(code)
             }
           }
         }
@@ -205,48 +232,49 @@ export default {
 
     // Cargar ítems desde MockAPI
     async fetchItems() {
-  try {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUser || !currentUser.id) {
-      console.error("No se pudo identificar al usuario actual.");
-      return;
-    }
-    const userId = currentUser.id;
+      try {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (!currentUser || !currentUser.id) {
+          console.error("No se pudo identificar al usuario actual.");
+          return;
+        }
+        const userId = currentUser.id;
 
-    const response = await axios.get(
-      "https://673f4527a9bc276ec4b7e74c.mockapi.io/api/v1/items",
-      { params: { userId } }
-    );
-
-    // Si no hay ítems, dejamos la lista vacía
-    if (response.data.length === 0) {
-      this.items = [];
-      return;
-    }
-
-    // Consultar datos de la API de MercadoLibre para cada código
-    this.items = await Promise.all(
-      response.data.map(async (item) => {
-        const apiResponse = await axios.get(
-          `https://api.mercadolibre.com/items/${item.code}`
+        const response = await axios.get(
+          "https://673f4527a9bc276ec4b7e74c.mockapi.io/api/v1/items",
+          { params: { userId } }
         );
-        const { title, price, pictures, permalink } = apiResponse.data;
 
-        return {
-          id: item.id,
-          code: item.code,
-          title,
-          price,
-          picture: pictures[0]?.url || "",
-          permalink,
-          status: item.status || "available",
-        };
-      })
-    );
-  } catch (error) {
-    console.error("Error cargando ítems:", error);
-  }
-}
+        // Si no hay ítems, dejamos la lista vacía
+        if (response.data.length === 0) {
+          this.items = [];
+          return;
+        }
+
+        // Consultar datos de la API de MercadoLibre para cada código
+        this.items = await Promise.all(
+          response.data.map(async (item) => {
+            const apiResponse = await axios.get(
+              `https://api.mercadolibre.com/items/${item.code}`
+            );
+            const { title, price, pictures, permalink } = apiResponse.data;
+
+            return {
+              id: item.id,
+              code: item.code,
+              title,
+              price,
+              picture: pictures[0]?.url || "",
+              permalink,
+              status: item.status || "available",
+              tag: item.tag || ""
+            };
+          })
+        );
+      } catch (error) {
+        console.error("Error cargando ítems:", error);
+      }
+    }
   },
 
   mounted() {

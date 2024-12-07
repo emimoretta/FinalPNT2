@@ -1,6 +1,6 @@
 .card {
     width: 250px; /* Ancho máximo */
-    height: 350px; /* Alto máximo */
+    height: 400px; /* Alto máximo */
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -71,4 +71,20 @@
   
   .card-status.gifted {
     color: red;
+  }
+
+  .tag-input {
+    width: 80%;
+    margin: 10px auto;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  .tag-input:focus {
+    border-color: #007bff;
   }

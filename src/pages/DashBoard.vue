@@ -17,6 +17,7 @@ import WishList from "@/components/WishList.vue";
 import GiftPage from "@/components/GiftPage.vue";
 import UserWishList from "@/components/UserWishList.vue";
 import AccountSettings from "@/components/AccountSettings.vue";
+import UserProfile  from "@/components/UserProfile.vue";
 
 
 export default {
@@ -27,6 +28,7 @@ export default {
     GiftPage,
     UserWishList,
     AccountSettings,
+    UserProfile,
   },
   data() {
     return {

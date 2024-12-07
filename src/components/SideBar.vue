@@ -16,7 +16,7 @@
 
     <!-- Opciones del menú -->
     <ul class="sidebar-menu">
-      <li @click="selectPage('MyAccount')">
+      <li @click="selectPage('UserProfile')">
         <a class="sidebar-link">
           <i class="fas fa-user-circle"></i>
           <span>Mi cuenta</span>

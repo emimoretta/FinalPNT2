@@ -1,6 +1,10 @@
 <template>
     <div class="gift-page">
-      <!-- Barra de búsqueda de usuarios -->
+      
+      <div class="empty-message">
+      <p>Buscá a la persona que quieras regalarle!</p>
+    </div>
+      
       <div class="search-bar">
         <input
           type="text"
