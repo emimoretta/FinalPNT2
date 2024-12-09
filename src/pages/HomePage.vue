@@ -10,17 +10,20 @@
 
     <!-- Formulario de login -->
     <LoginForm />
+
+ 
+
   </div>
 </template>
 
 <script>
-import LoginForm from "@/components/LoginForm.vue"; // Importa el componente Login
+import LoginForm from "@/components/LoginForm.vue"; 
 
 export default {
   name: "HomePage",
   components: {
     LoginForm,
-
+    
   },
 };
 </script>
