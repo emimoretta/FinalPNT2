@@ -3,20 +3,20 @@
     <div>
 
       <div class="user-banner">
-      <!-- Avatar -->
-      <div class="avatar-container">
-        <img :src="user.avatar" alt="Avatar" class="avatar-img" />
-      </div>
+        <!-- Avatar -->
+        <div class="avatar-container">
+          <img :src="user.avatar" alt="Avatar" class="avatar-img" />
+        </div>
 
-      <!-- Información del Usuario -->
-      <div class="user-info">
-        <h1>{{ username }}</h1>
-        <p><strong>Nombre completo:</strong> {{ user.fullName }}</p>
-        <p><strong>Ciudad:</strong> {{ user.city }}</p>
-        <p><strong>Fecha de cumpleaños:</strong> {{ user.birthday }}</p>
-        <p><strong>Intereses:</strong> {{ user.interests }}</p>
+        <!-- Información del Usuario -->
+        <div class="user-info">
+          <h1>{{ username }}</h1>
+          <p><strong>Nombre completo:</strong> {{ user.fullName }}</p>
+          <p><strong>Ciudad:</strong> {{ user.city }}</p>
+          <p><strong>Fecha de cumpleaños:</strong> {{ user.birthday }}</p>
+          <p><strong>Intereses:</strong> {{ user.interests }}</p>
+        </div>
       </div>
-    </div>
 
       <!-- Mensaje cuando no hay ítems -->
       <div v-if="items.length === 0" class="empty-message">
@@ -60,6 +60,7 @@
 
 <script>
 import axios from "axios";
+import formatearFecha from "../services/formatos";
 
 export default {
   name: "UserWishList",
@@ -85,7 +86,7 @@ export default {
   },
   async mounted() {
     await this.fetchWishlist();
-    await  this.fetchUserData();
+    await this.fetchUserData();
   },
   methods: {
     async fetchWishlist() {
@@ -134,7 +135,7 @@ export default {
 
       }
     },
-    
+
     async fetchUserData() {
       try {
         // Obtener datos del usuario
@@ -145,17 +146,17 @@ export default {
 
         if (userResponse.data.length > 0) {
           const user = userResponse.data[0];
+
           this.user = {
             fullName: user.fullName || "No especificado",
             city: user.city || "No especificado",
-            birthday: user.birthday || "No especificado",
+            birthday: formatearFecha(user.birthday) || "No especificado",
             interests: user.interests || "No especificado",
             avatar: `https://api.multiavatar.com/${user.username}.png`,
           };
 
           
-          const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-          this.user.birthday=new Date(this.user.birthday).toLocaleDateString("es-AR", options);
+
 
           // Obtener ítems del usuario
           const itemsResponse = await axios.get(
@@ -321,7 +322,8 @@ h1 {
 
 /* Avatar */
 .avatar-container {
-  flex: 1; /* Ocupa 1 parte del espacio */
+  flex: 1;
+  /* Ocupa 1 parte del espacio */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -337,7 +339,8 @@ h1 {
 
 /* Información del usuario */
 .user-info {
-  flex: 3; /* Ocupa 3 partes del espacio */
+  flex: 3;
+  /* Ocupa 3 partes del espacio */
   padding-left: 20px;
   text-align: left;
 }
@@ -354,8 +357,8 @@ h1 {
 }
 
 .username {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: left;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: left;
 }
 </style>
