@@ -67,7 +67,8 @@ export default {
       // Eliminar datos de sesión
       localStorage.removeItem("currentUser");
       // Redirigir al login
-      window.location.href = "http://localhost:8080/";
+      this.$router.push({ path: "/" });
+
     },
   },
   mounted() {
