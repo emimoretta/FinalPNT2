@@ -114,6 +114,11 @@ export default {
 </script>
 
 <style scoped>
+
+.editable-fields{
+    margin: auto;
+    max-width: 50%;
+}
 .user-profile {
     text-align: center;
     padding: 20px;

@@ -7,13 +7,24 @@ const API_URL = "https://673f4527a9bc276ec4b7e74c.mockapi.io/api/v1/users";
 const generateToken = () => Math.random().toString(36).substr(2);
 
 // Registrar un usuario
+// Registrar un usuario
 export const registerUser = async (user) => {
   try {
+    // Verificar si el usuario ya existe
+    const existingUserResponse = await axios.get(API_URL, {
+      params: { username: user.username },
+    });
+
+    if (existingUserResponse.data.length > 0) {
+      throw new Error("El usuario ya existe.");
+    }
+
+    // Si no existe, registrar el usuario
     const response = await axios.post(API_URL, user);
     return response.data;
   } catch (error) {
-    console.error("Error registrando usuario:", error);
-    throw error;
+    console.error("Error registrando usuario:", error.message);
+    throw error; // Re-lanzar el error para manejarlo en el frontend
   }
 };
 

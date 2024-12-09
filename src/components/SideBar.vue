@@ -19,7 +19,7 @@
       <li @click="selectPage('UserProfile')">
         <a class="sidebar-link">
           <i class="fas fa-user-circle"></i>
-          <span>Mi cuenta</span>
+          <span>Mi perfil</span>
         </a>
       </li>
       <li @click="selectPage('WishList')">

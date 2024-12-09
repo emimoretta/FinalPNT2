@@ -213,6 +213,7 @@ export default {
           userId,
           code,
           status: "available", // Estado inicial
+          tag: "",
         });
 
         // Llamar a la API principal para obtener datos del producto
@@ -221,7 +222,7 @@ export default {
         const picture = pictures[0]?.url || "";
 
         // Agregar el nuevo ítem al array local
-        this.items.push({ code, title, price, picture, permalink });
+        this.items.push({ code, title, price, picture, permalink, tag:""});
         this.itemUrl = ""; // Limpiar el campo de entrada
         this.status = ""; // Resetear el estado de validación
       } catch (error) {
