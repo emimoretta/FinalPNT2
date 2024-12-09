@@ -22,24 +22,28 @@
           <span>Mi perfil</span>
         </a>
       </li>
+      <hr>
       <li @click="selectPage('WishList')">
         <a class="sidebar-link">
           <i class="fas fa-heart"></i>
           <span>Mis deseos</span>
         </a>
       </li>
+      <hr>
       <li @click="selectPage('GiftPage')">
         <a class="sidebar-link">
           <i class="fas fa-gift"></i>
           <span>Regalar</span>
         </a>
       </li>
+      <hr>
       <li @click="selectPage('AccountSettings')">
         <a class="sidebar-link">
           <i class="fas fa-cog"></i>
           <span>Configuración</span>
         </a>
       </li>
+      <hr>
        <!-- Cerrar sesión -->
        <li @click="logout">
         <a class="sidebar-link">
