@@ -20,7 +20,19 @@ export const registerUser = async (user) => {
     }
 
     // Registrar el usuario si no existe
+
+    const newUser = {
+      username=user.username,
+      password=user.password,
+      fullName="",
+      city="",
+      birthday="",
+      interests="",
+    }
+
     const response = await axios.post(API_URL, user);
+
+
     return response.data;
   } catch (error) {
     // Log detallado para depurar errores
