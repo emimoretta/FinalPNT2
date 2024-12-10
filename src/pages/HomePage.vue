@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column justify-content-center align-items-center vh-90" style="height: 100vh;" >
+  <div class="d-flex flex-column justify-content-center align-items-center vh-90" style="min-height: 100vh;" >
     <!-- Logo -->
     <div class="upperBar">
       <label>⚡Bienvenido a Wishlist! Comenzá con el paso a paso para registrarte⚡</label>
@@ -76,6 +76,7 @@ export default {
 }
 .card{
   height: auto!important;
+  max-width: 500px;
 }
 .upperBar{
   background-color: rgba(255, 238, 84, 0.978);
