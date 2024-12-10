@@ -217,7 +217,6 @@ export default {
         });
 
         const id=respuesta.data.id;
-        console.log(id);
 
         // Llamar a la API principal para obtener datos del producto
         const finalResponse = await axios.get(`https://api.mercadolibre.com/items/${code}`);
@@ -255,6 +254,7 @@ export default {
           return;
         }
         
+
         // Consultar datos de la API de MercadoLibre para cada código
         this.items = await Promise.all(
           response.data.map(async (item) => {
@@ -275,6 +275,8 @@ export default {
             };
           })
         );
+        
+
       } catch (error) {
         console.error("Error cargando ítems:", error);
       }

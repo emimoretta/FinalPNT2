@@ -2,22 +2,14 @@
   <div class="dashboard">
 
     <div class="notifications-container">
-      <div
-        v-for="(notification, index) in notifications"
-        :key="index"
-        class="notification"
-      >
+      <div v-for="(notification, index) in notifications" :key="index" class="notification">
         🎁 ¡Alguien te regaló algo. Revisá tu listado ahora! 🎁
       </div>
     </div>
 
     <SideBar @selectPage="changePage" />
     <div class="dashboard-content">
-      <component
-        :is="currentPage"
-        @viewWishlist="viewWishlist"
-        :username="selectedUsername"
-      />
+      <component :is="currentPage" @viewWishlist="viewWishlist" :username="selectedUsername" />
     </div>
   </div>
 </template>
@@ -30,7 +22,7 @@ import WishList from "@/components/WishList.vue";
 import GiftPage from "@/components/GiftPage.vue";
 import UserWishList from "@/components/UserWishList.vue";
 import AccountSettings from "@/components/AccountSettings.vue";
-import UserProfile  from "@/components/UserProfile.vue";
+import UserProfile from "@/components/UserProfile.vue";
 
 
 export default {
@@ -77,28 +69,36 @@ export default {
           { params: { userId } }
         );
 
-        // Detectar ítems que cambiaron su estado a "gifted"
-        const updatedGiftedItems = response.data.filter(
-          (item) => item.status === "gifted"
-        );
+        const items = response.data;
 
-        // Identificar nuevos ítems 'gifted' que no estaban en la lista anterior
-        const newGiftedItems = updatedGiftedItems.filter(
-          (item) => !this.giftedItems.some((gifted) => gifted.id === item.id)
-        );
 
-        // Agregar notificaciones para los nuevos ítems 'gifted'
-        newGiftedItems.forEach(() => {
-          this.notifications.push({}); // Notificación genérica
+        if (items.length > 0) {
+          // Detectar ítems que cambiaron su estado a "gifted"
+          const updatedGiftedItems = response.data.filter(
+            (item) => item.status === "gifted"
+          );
 
-          // Eliminar notificación después de 5 segundos
-          setTimeout(() => {
-            this.notifications.shift(); // Quitar la notificación más antigua
-          }, 5000);
-        });
+          // Identificar nuevos ítems 'gifted' que no estaban en la lista anterior
+          const newGiftedItems = updatedGiftedItems.filter(
+            (item) => !this.giftedItems.some((gifted) => gifted.id === item.id)
+          );
 
-        // Actualizar la lista local de ítems 'gifted'
-        this.giftedItems = updatedGiftedItems;
+          // Agregar notificaciones para los nuevos ítems 'gifted'
+          newGiftedItems.forEach(() => {
+            this.notifications.push({}); // Notificación genérica
+
+            // Eliminar notificación después de 5 segundos
+            setTimeout(() => {
+              this.notifications.shift(); // Quitar la notificación más antigua
+            }, 5000);
+          });
+
+          // Actualizar la lista local de ítems 'gifted'
+          this.giftedItems = updatedGiftedItems;
+        }
+
+
+
       } catch (error) {
         console.error("Error verificando ítems regalados:", error);
       }
@@ -120,6 +120,7 @@ export default {
   display: flex;
   height: 100vh;
 }
+
 .dashboard-content {
   flex: 1;
   padding: 20px;
@@ -133,7 +134,8 @@ export default {
   right: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Espacio entre notificaciones */
+  gap: 10px;
+  /* Espacio entre notificaciones */
   z-index: 1000;
 }
 
@@ -155,10 +157,13 @@ export default {
     opacity: 0;
     transform: translateY(10px);
   }
-  10%, 90% {
+
+  10%,
+  90% {
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY(10px);
