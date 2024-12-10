@@ -275,7 +275,8 @@ export default {
         console.error("Error cargando ítems:", error);
       }
     }
-    
+  }
+}
   },
 
   mounted() {
