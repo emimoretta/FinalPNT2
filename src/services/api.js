@@ -19,18 +19,16 @@ export const registerUser = async (user) => {
       throw new Error("El usuario ya existe.");
     }
 
-    // Registrar el usuario si no existe
-
     const newUser = {
-      username=user.username,
-      password=user.password,
-      fullName="",
-      city="",
-      birthday="",
-      interests="",
+      username: user.username, 
+      password: user.password,
+      fullName: "", 
+      city: "",
+      birthday: "",
+      interests: "",
     };
 
-    const response = await axios.post(API_URL, user);
+    const response = await axios.post(API_URL, newUser);
 
 
     return response.data;
