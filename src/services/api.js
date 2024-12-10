@@ -28,7 +28,7 @@ export const registerUser = async (user) => {
       city="",
       birthday="",
       interests="",
-    }
+    };
 
     const response = await axios.post(API_URL, user);
 
