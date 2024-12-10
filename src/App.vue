@@ -6,6 +6,21 @@
   </head>
   <!-- Renderiza las páginas dinámicamente según la ruta actual -->
   <router-view />
+  <!-- Footer -->
+  <footer class="footer bg-light text-center py-3">
+      Diseñado por Emiliano Moretta - 2024
+      <div class="social-links mt-2">
+        <a href="https://www.facebook.com" target="_blank" class="text-decoration-none me-3">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com" target="_blank" class="text-decoration-none me-3">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com" target="_blank" class="text-decoration-none">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+    </footer>
 </template>
 
 <script>
@@ -23,5 +38,22 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
 }
+
+/* Footer */
+.footer {
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); /* Sombra superior */
+}
+
+.footer .social-links a {
+  font-size: 20px;
+  color: #007bff; /* Azul destacado */
+  transition: color 0.3s;
+}
+
+.footer .social-links a:hover {
+  color: #0056b3; /* Azul más oscuro */
+}
+
 </style>

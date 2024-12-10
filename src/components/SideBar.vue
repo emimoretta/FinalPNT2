@@ -2,7 +2,7 @@
   <div class="sidebar">
     <!-- Logo -->
     <div class="sidebar-logo">
-      <img src="@/assets/logo.png" alt="Logo" />
+      <img :src="avatarUrl" alt="Avatar del usuario" class="avatar" />
     </div>
 
     <!-- Bienvenida -->
@@ -60,10 +60,19 @@ export default {
   name: "SideBar",
   data() {
     return {
+      avatarUrl: "",
       username: "", // Nombre del usuario
     };
   },
   methods: {
+    async fetchUserAvatar() {
+            try {
+              this.avatarUrl = `https://api.multiavatar.com/${this.username}.png`;
+               
+            } catch (error) {
+                console.error("Error al cargar la foto de perfil del usuario:", error);
+            }
+        },
     selectPage(page) {
       this.$emit("selectPage", page); // Emite el evento para cambiar la página
     },
@@ -77,8 +86,10 @@ export default {
   },
   mounted() {
     // Obtener el username desde localStorage
+    
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     this.username = currentUser ? currentUser.username : "Usuario";
+    this.fetchUserAvatar();
   },
 };
 </script>

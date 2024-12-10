@@ -42,7 +42,7 @@
         </div>
   
         <!-- Botón para guardar los cambios -->
-        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <button type="submit" class="btn btn-primary" >Guardar cambios</button>
       </form>
     </div>
   </template>
@@ -74,7 +74,7 @@
           alert("Las contraseñas no coinciden.");
           return;
         }
-  
+        
         try {
           const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   
@@ -92,12 +92,16 @@
           localStorage.setItem("currentUser", JSON.stringify(currentUser));
   
           alert("¡Datos actualizados correctamente!");
+          window.location.reload()
         } catch (error) {
           console.error("Error actualizando los datos:", error);
           alert("Hubo un error al actualizar los datos. Intenta nuevamente.");
         }
       },
     },
+    reloadPage() {
+    window.location.reload();
+  },
   };
   </script>
   
