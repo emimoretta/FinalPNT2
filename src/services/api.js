@@ -9,20 +9,27 @@ const generateToken = () => Math.random().toString(36).substr(2);
 // Registrar un usuario
 export const registerUser = async (user) => {
   try {
-    // Verificar si el usuario ya existe
-    const existingUserResponse = await axios.get(API_URL, {
-      params: { username: user.username },
-    });
+    const existingUserResponse = await axios.get(API_URL);
 
-    if (existingUserResponse.data.length > 0) {
+    const existingUser = existingUserResponse.data.find(
+      (u) => u.username.toLowerCase() === user.username.toLowerCase()
+    );
+
+    if (existingUser) {
       throw new Error("El usuario ya existe.");
     }
-    console.log(user.username + user.password);
-    // Si no existe, registrar el usuario
+
+    // Registrar el usuario si no existe
     const response = await axios.post(API_URL, user);
     return response.data;
   } catch (error) {
-    console.error("Error registrando usuario:", error.message);
+    // Log detallado para depurar errores
+    if (error.response) {
+      console.error("Error en la respuesta del servidor:", error.response.data);
+      console.error("Código de estado:", error.response.status);
+    } else {
+      console.error("Error al conectar con el servidor:", error.message);
+    }
     throw error; // Re-lanzar el error para manejarlo en el frontend
   }
 };
