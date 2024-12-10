@@ -10,13 +10,13 @@
   <footer class="footer bg-light text-center py-3">
       Diseñado por Emiliano Moretta - 2024
       <div class="social-links mt-2">
-        <a href="https://www.facebook.com" target="_blank" class="text-decoration-none me-3">
+        <a href="https://www.facebook.com/EmiMoretta/?locale=es_LA" target="_blank" class="text-decoration-none me-3">
           <i class="fab fa-facebook"></i>
         </a>
-        <a href="https://www.instagram.com" target="_blank" class="text-decoration-none me-3">
+        <a href="https://www.instagram.com/emimoretta_/?hl=es" target="_blank" class="text-decoration-none me-3">
           <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://www.linkedin.com" target="_blank" class="text-decoration-none">
+        <a href="https://www.linkedin.com/in/emiliano-moretta-a4b9986b/" target="_blank" class="text-decoration-none">
           <i class="fab fa-linkedin"></i>
         </a>
       </div>
