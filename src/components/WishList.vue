@@ -251,8 +251,7 @@ export default {
           this.items = [];
           return;
         }
-
-        // Consultar datos de la API de MercadoLibre para cada código
+        else{
         this.items = await Promise.all(
           response.data.map(async (item) => {
             const apiResponse = await axios.get(
@@ -272,10 +271,11 @@ export default {
             };
           })
         );
-      } catch (error) {
+      catch (error) {
         console.error("Error cargando ítems:", error);
       }
     }
+    
   },
 
   mounted() {
