@@ -28,7 +28,6 @@
           :placeholder="'Inserta una etiqueta'"
           v-model="item.tag"
           @blur="updateTag(item)"
-          @keyup.enter="updateTag(item)"
         />
         <img :src="item.picture" alt="Imagen del producto" class="card-img" />
         <a :href="item.permalink" target="_blank" class="card-link">
@@ -74,6 +73,7 @@ export default {
   methods: {
 
     async updateTag(item) {
+  
       try {
         // Actualizar etiqueta en MockAPI
         await axios.put(
@@ -209,12 +209,15 @@ export default {
         const userId = currentUser.id;
 
         // Guardar el código y el userId en MockAPI
-        await axios.post("https://673f4527a9bc276ec4b7e74c.mockapi.io/api/v1/items", {
+        const respuesta = await axios.post("https://673f4527a9bc276ec4b7e74c.mockapi.io/api/v1/items", {
           userId,
           code,
           status: "available", // Estado inicial
           tag: "",
         });
+
+        const id=respuesta.data.id;
+        console.log(id);
 
         // Llamar a la API principal para obtener datos del producto
         const finalResponse = await axios.get(`https://api.mercadolibre.com/items/${code}`);
@@ -222,7 +225,7 @@ export default {
         const picture = pictures[0]?.url || "";
 
         // Agregar el nuevo ítem al array local
-        this.items.push({ code, title, price, picture, permalink, tag:""});
+        this.items.push({id, code, title, price, picture, permalink, tag:""});
         this.itemUrl = ""; // Limpiar el campo de entrada
         this.status = ""; // Resetear el estado de validación
       } catch (error) {
